@@ -1,0 +1,87 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+tags:
+  - openvpn
+host: localhost
+basePath: /v1
+schemes:
+  - http
+definitions:
+  OpenVPN:
+    type: object
+    properties:
+      source:
+        type: string
+        format: ipv4
+        required: true
+      destination:
+        type: string
+        format: ipv4
+        required: true
+      address:
+        type: string
+        format: ipv4
+        required: true
+      remote:
+        type: string
+        format: ipv4
+        required: true
+      mode:
+        type: string
+        enum: [site-to-site, client, server]
+        required: true
+paths:
+  /interface/openvpn/{name}:
+    put:
+      tags:
+        - openvpn
+      description: Create openvpn instance
+      parameters:
+        - name: name
+          in: path
+          description: OpenVPN instance name
+          required: true
+          type: string
+        - name: openvpn
+          in: body
+          description: OpenVPN attributes
+          required: true
+          schema:
+            $ref: '#/definitions/OpenVPN'
+    patch:
+      tags:
+        - openvpn
+      description: Edit openvpn instance attributes
+      parameters:
+        - name: name
+          in: path
+          description: name of openvpn instance
+          required: true
+          type: string
+        - name: openvpn
+          in: body
+          summary: OpenVPN attributes
+          required: true
+          schema:
+            $ref: '#/definitions/OpenVPN'
+      responses:
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - openvpn
+      summary: Get openvpn attributes by name
+      parameters:
+        - name: name
+          in: path
+          description: name of openvpn instance
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/OpenVPN'
+        '404':
+          description: No such openvpn interface

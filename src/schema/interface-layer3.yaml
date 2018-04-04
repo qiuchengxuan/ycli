@@ -1,0 +1,11 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+definitions:
+  Layer3Interface:
+    type: object
+    properties:
+      address:
+        type: string
+        format: ipv4
+        required: true

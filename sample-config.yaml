@@ -1,0 +1,12 @@
+---
+interface eth0:
+  address: 124.205.174.146/30
+  description: ISP-1
+---
+interface tun0:
+  type: openvpn
+  destination: x.yunshan.net.cn
+  local: 10.0.0.1
+  remote: 10.0.0.7
+  mode: site-to-site
+---

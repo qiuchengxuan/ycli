@@ -1,0 +1,55 @@
+swagger: '2.0'
+info:
+  version: 0.1.0
+tags:
+  - openvpn
+host: localhost
+basePath: /v1
+schemes:
+  - http
+definitions:
+  Ethernet:
+    type: object
+    properties:
+      allOf:
+        - $ref: 'interface-layer3.yaml#/definitions/Layer3Interface'
+paths:
+  /interface/ethernet/{name}:
+    patch:
+      tags:
+        - ethernet
+      summary: change ethernet instance attributes
+      parameters:
+        - name: name
+          in: path
+          description: name of ethernet interface
+          required: true
+          type: string
+        - name: ethernet
+          in: body
+          description: Ethernet attributes
+          required: true
+          schema:
+            $ref: '#/definitions/Ethernet'
+      responses:
+        '200':
+          description: Success
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - ethernet
+      summary: Get ethernet attributes
+      parameters:
+        - name: name
+          in: path
+          description: name of ethernet interface
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/Ethernet'
+        '404':
+          description: No such ethernet

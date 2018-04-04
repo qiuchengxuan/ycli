@@ -1,0 +1,24 @@
+[package]
+name = "ycli"
+version = "0.1.0"
+authors = ["qiuchengxuan@gmail.com"]
+description = "Yaml-based command line interface"
+license = "Apache-2.0"
+
+[dependencies]
+clap = "2.33"
+ctrlc = "3.1"
+gethostname = "0.2"
+log = "0.4"
+serde_yaml = "0.8"
+swagger-utils = { path = "../rs-swagger-utils" }
+simple-logging = "2.0"
+termion = "1.5"
+vec-tree = "0.1"
+yaml-rust = "0.4"
+
+[profile.release]
+opt-level = 'z'  # Optimize for size.
+lto = true
+codegen-units = 1
+panic = 'abort'
